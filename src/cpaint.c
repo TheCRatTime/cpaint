@@ -352,6 +352,27 @@ static void ParseString(const char* text) {
   }
 }
 
+/* Find at end function. */
+static int HasAtEnd(const char* str1, const char* str2) {
+  int len1 = strlen(str1);
+  int len2 = strlen(str2);
+  int i = 0;
+  int j = 0;
+
+  if (len1 < len2) {
+    return 0;
+  }
+
+  for(i = len1-1, j = len2-1; i >= 0 && j >= 0;
+      i--, j--) {
+    if (str1[i] != str2[j]) {
+      return 0;
+    }
+  }
+  
+  return 1;
+}
+
 /* Main function. */
 int main(int argc, char** argv) {
   char* buffer = NULL;
@@ -360,6 +381,11 @@ int main(int argc, char** argv) {
   
   if (argc < 2) {
     printf("Usage: %s FILE\n", argv[0]);
+    return 1;
+  }
+
+  if (!HasAtEnd(argv[1], ".c") && !HasAtEnd(argv[1], ".h")) {
+    printf("%s: %s: isn't a header or source\n", argv[0], argv[1]);
     return 1;
   }
 
