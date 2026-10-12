@@ -354,8 +354,8 @@ static void ParseString(const char* text) {
 
 /* Find at end function. */
 static int HasAtEnd(const char* str1, const char* str2) {
-  int len1 = strlen(str1);
-  int len2 = strlen(str2);
+  size_t len1 = strlen(str1);
+  size_t len2 = strlen(str2);
   int i = 0;
   int j = 0;
 
@@ -363,7 +363,7 @@ static int HasAtEnd(const char* str1, const char* str2) {
     return 0;
   }
 
-  for(i = len1-1, j = len2-1; i >= 0 && j >= 0;
+  for(i = (int)len1-1, j = (int)len2-1; i >= 0 && j >= 0;
       i--, j--) {
     if (str1[i] != str2[j]) {
       return 0;
